@@ -1,6 +1,7 @@
 // app/feed/page.tsx
 import { supabase } from '../../lib/supabaseClient';
 import LinkTable from '../../components/LinkTable';
+import Link from 'next/link';
 
 export default async function FeedPage() {
   // Fetch links from Supabase
@@ -17,7 +18,7 @@ export default async function FeedPage() {
   return (
     <div style={{ padding: '2rem' }}>
 
-    <a href="/" className=" text-center sm:text-left font-bold" style={{ textDecoration: 'none', color: '#000' }}>← Home</a>
+    <Link href="/" className=" text-center sm:text-left font-bold" style={{ textDecoration: 'none', color: '#000' }}>← Home</Link>
       <h1 className="text-4xl sm:text-5xl text-center sm:text-left font-bold">Feed</h1>
       {links.length === 0 ? (
         <p>Unable to retrieve links.</p>

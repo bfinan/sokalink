@@ -1,10 +1,6 @@
 // components/LinkTable.tsx
 import { formatDistanceToNow } from 'date-fns';
 
-interface Profile {
-    display_name: string;
-}
-
 interface Link {
   id: string;
   url: string;
