@@ -16,11 +16,13 @@ export default async function FeedPage() {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h1>Feed</h1>
+
+    <a href="/" className=" text-center sm:text-left font-bold" style={{ textDecoration: 'none', color: '#000' }}>← Home</a>
+      <h1 className="text-4xl sm:text-5xl text-center sm:text-left font-bold">Feed</h1>
       {links.length === 0 ? (
         <p>Unable to retrieve links.</p>
       ) : (
-        <LinkTable links={links} />
+        <LinkTable links={links} limit={100} />
       )}
     </div>
   );

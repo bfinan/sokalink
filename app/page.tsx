@@ -48,7 +48,7 @@ export default async function Home() {
         </div>
 
         <div style={{ padding: '2rem' }}>
-      <h2>Newest  Links</h2><br></br>
+      <h2>Newest Links</h2><br></br>
       {links ? <LinkTable links={links} limit={10} /> : <p>No links to display.</p>}
     </div>
 

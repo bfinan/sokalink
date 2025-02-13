@@ -11,7 +11,6 @@ interface Link {
   title?: string;
   created_at: string;
   submitter?: string; // UUID referencing the profile
-  profiles?: Profile; // Nested object from the join
 }
 
 interface LinkTableProps {
@@ -37,7 +36,7 @@ export default function LinkTable({ links, limit }: LinkTableProps) {
           </a>
           <br />
           <small style={{ color: 'lightgray', marginLeft: '8px' }}>
-            from {link.submitter} {formatDistanceToNow(new Date(link.created_at))} ago
+            from {link.submitter ? link.submitter : "Brendan"} {formatDistanceToNow(new Date(link.created_at))} ago
           </small>
         </li>
       ))}
