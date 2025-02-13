@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { supabase } from '../lib/supabaseClient';
 import LinkTable from '../components/LinkTable';
 
