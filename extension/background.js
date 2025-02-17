@@ -11,7 +11,7 @@ chrome.action.onClicked.addListener(async (tab) => {
             // Send the URL to Supabase
             const { data, error } = await supabase
                 .from('links')
-                .insert([{ url: tab.url , title:tab.title}]);
+                .insert([{ url: tab.url , submitter:"2888a14a-a9e6-4b64-8509-0b0d343f1b0b", title:tab.title}]);
 
             if (error) {
                 console.error("Failed to publish URL:", error);
