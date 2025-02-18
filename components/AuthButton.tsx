@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabaseClient";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"; // Import the modal
+import Link from 'next/link';
 
 export default function AuthButton() {
   const [session, setSession] = useState<Session | null>(null);
@@ -11,7 +12,7 @@ export default function AuthButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const getSession = async () => {
@@ -46,20 +47,34 @@ export default function AuthButton() {
   async function handleLogout() {
     await supabase.auth.signOut();
     setSession(null);
+    setDropdownOpen(false);
   }
 
   return (
-    <div>
+    <div className="relative">
       {session ? (
-        // Show Logout Button if User is Logged In
-        <button
-          onClick={handleLogout}
-          className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-8 sm:h-8 px-4 sm:px-5 sm:min-w-22"
-        >
-          Logout
-        </button>
+        <div>
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="text-gray-600 dark:text-gray-300 text-sm hover:underline"
+          >
+            My Profile
+          </button>
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
+              <Link href="/profile" className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                Profile
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
       ) : (
-        // Show Login Button if User is Not Logged In
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <button className="rounded-full bg-[#088F8F] dark:bg-[#0e6f9e] text-white transition-colors flex items-center justify-center hover:bg-[#0056b3] dark:hover:bg-[#0e6f9e] h-8 sm:h-8 px-4 sm:px-5 sm:min-w-22">
@@ -82,9 +97,11 @@ export default function AuthButton() {
               onClick={handleLogin}
               disabled={loading}
               className="w-full bg-[#088F8F] text-white p-2 rounded-md mt-4"
+
             >
               {loading ? "Sending..." : "Send Magic Link"}
-            </button>
+              </button>
+
 
             {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
           </DialogContent>

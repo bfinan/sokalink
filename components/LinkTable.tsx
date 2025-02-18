@@ -1,9 +1,8 @@
 "use client";
 
-// components/LinkTable.tsx
 import { formatDistanceToNow } from 'date-fns';
-import { supabase } from '../lib/supabaseClient'; // Import supabase client
-import { useEffect, useState } from 'react'; // Import useEffect and useState
+import { supabase } from '../lib/supabaseClient'; 
+import { useEffect, useState } from 'react'; 
 
 interface Profile {
   display_name: string | null;
@@ -19,12 +18,13 @@ interface Link {
 }
 
 interface LinkTableProps {
-  links: Link[];
   limit?: number;
 }
 
-export default function LinkTable({ links, limit }: LinkTableProps) {
+export default function LinkTable({ limit }: LinkTableProps) {
   const [userId, setUserId] = useState<string | null>(null);
+  const [links, setLinks] = useState<Link[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,7 +36,22 @@ export default function LinkTable({ links, limit }: LinkTableProps) {
       setUserId(session.user.id);
     };
 
+    const fetchLinks = async () => {
+      const { data: links, error } = await supabase
+        .from("links")
+        .select("*, profiles!links_submitter_fkey(display_name)")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching links:", error);
+        setError("Error loading links.");
+      } else {
+        setLinks(links);
+      }
+    };
+
     fetchUser();
+    fetchLinks();
   }, []);
 
   // If a limit is provided, slice the array to show only the first N links.
@@ -54,11 +69,16 @@ export default function LinkTable({ links, limit }: LinkTableProps) {
       } else {
         console.log("Link deleted successfully");
         // Optionally, you can refresh the links list here
+        setLinks(links.filter(link => link.id !== id));
       }
     } catch (error) {
       console.error("Unexpected error:", error);
     }
   };
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)] flex">
