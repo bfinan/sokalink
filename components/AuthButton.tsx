@@ -56,7 +56,7 @@ export default function AuthButton() {
         <div>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="text-gray-600 dark:text-gray-300 text-sm hover:underline"
+            className="block w-full  text-gray-600 dark:text-gray-300 text-sm hover:underline"
           >
             My Profile
           </button>

@@ -1,19 +1,18 @@
 import LinkTable from "../components/LinkTable"; // Import the updated LinkTable
-import Header from "../components/Header"; // Import the new Header
 
 export default async function Home() {
-
-
   return (
-    <div className="min-h-screen">
-      <Header /> {/* New Header Component */}
+    <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       <main className="p-8 pb-20 flex items-center justify-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 w-full max-w-6xl items-start">
           {/* Left Side: Title, Description, and Buttons */}
           <div className="flex flex-col gap-6 items-start">
-            <h2 className="text-lg sm:text-xl text-gray-600 dark:text-gray-400">
+            <h2 className="pt-32 text-lg sm:text-3xl text-gray-900 dark:text-gray-200 font-bold">
               One-click social link sharing
             </h2>
+            <h3 className="text-gray-600 dark:text-gray-300">
+              Share your discoveries instantly without overthinking.
+            </h3>
             <a
               className="rounded-full bg-[#088F8F] dark:bg-[#0e6f9e] text-white transition-colors flex items-center justify-center hover:bg-[#0056b3] dark:hover:bg-[#0e6f9e] h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
               href="/feed"

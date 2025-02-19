@@ -3,6 +3,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import { supabase } from '../lib/supabaseClient'; 
 import { useEffect, useState } from 'react'; 
+import { Link } from 'lucide-react';
 
 interface Profile {
   display_name: string | null;
@@ -76,6 +77,11 @@ export default function LinkTable({ limit }: LinkTableProps) {
     }
   };
 
+  const getDomain = (url: string) => {
+    const { hostname } = new URL(url);
+    return hostname.replace('www.', '');
+  };
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -93,6 +99,9 @@ export default function LinkTable({ limit }: LinkTableProps) {
             >
               {link.title ? link.title : link.url}
             </a>
+            <small style={{ color: "darkgray", marginLeft: "8px" }}>
+              ({getDomain(link.url)})
+            </small>
             <br />
             <small style={{ color: "darkgray", marginLeft: "8px" }}>
               from {link.profiles?.display_name || "anonymous"}
@@ -105,7 +114,7 @@ export default function LinkTable({ limit }: LinkTableProps) {
                 onClick={() => handleDelete(link.id)} 
                 style={{ marginLeft: '8px', color: 'red' }}
               >
-                delete
+                <small>delete</small>
               </button>
             )}
           </li>
@@ -113,4 +122,3 @@ export default function LinkTable({ limit }: LinkTableProps) {
       </ul>
     </div>
   );
-}
