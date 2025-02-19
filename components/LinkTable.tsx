@@ -122,3 +122,4 @@ export default function LinkTable({ limit }: LinkTableProps) {
       </ul>
     </div>
   );
+}
