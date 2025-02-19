@@ -78,7 +78,7 @@ export default function AuthButton() {
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <button className="rounded-full bg-[#088F8F] dark:bg-[#0e6f9e] text-white transition-colors flex items-center justify-center hover:bg-[#0056b3] dark:hover:bg-[#0e6f9e] h-8 sm:h-8 px-4 sm:px-5 sm:min-w-22">
-              Login
+              Log In
             </button>
           </DialogTrigger>
           <DialogContent>
