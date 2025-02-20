@@ -10,7 +10,7 @@ export default function TutorialPage() {
         <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl text-center">
           You have successfully installed the sharing extension. Next up, we will allow the extension to publish links.
         </p>
-        <Link href="/welcome/permissions" font className="mt-4 bg-[#088F8F] text-white py-2 px-4 rounded-md hover:bg-[#0056b3]">
+        <Link href="/welcome/permissions" className="mt-4 bg-[#088F8F] text-white py-2 font-bold px-4 rounded-md hover:bg-[#0056b3]">
           NEXT
         </Link>
       </main>
