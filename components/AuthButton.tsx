@@ -1,31 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Session } from "@supabase/supabase-js";
+import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import Link from 'next/link';
+import { useAuth } from './auth-context'; // Import useAuth
 
 export default function AuthButton() {
-  const [session, setSession] = useState<Session | null>(null);
-
+  const { session, setSession } = useAuth(); // Use the auth context
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const getSession = async () => {
-      const { data : {session}} = await supabase.auth.getSession();
-      setSession(session);
-    };
-
-    getSession();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((_, newSession) => {
-      setSession(newSession);
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    }
-  }, []);
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -39,7 +21,7 @@ export default function AuthButton() {
         <div>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="block w-full  text-gray-600 dark:text-gray-300 text-sm hover:underline"
+            className="block w-full text-gray-600 dark:text-gray-300 text-sm hover:underline"
           >
             My Profile
           </button>

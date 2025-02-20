@@ -3,30 +3,23 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import Link from 'next/link';
+import { useAuth } from '../../components/auth-context'; // Import useAuth
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  /*
-  const handleLogin = async (/*provider: string) => {
-    setLoading(true);
-    //const { error } = await supabase.auth.signInWithOAuth({ provider });
-    //if (error) {
-    //  setMessage(`Error: ${error.message}`);
-    //
-    setLoading(false);
-  };
-  */
+  const { setSession } = useAuth(); // Use the auth context
 
   const handleEmailLogin = async () => {
     if (!email) return;
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    const { data: { session }, error } = await supabase.auth.signInWithOtp({ email });
     if (error) {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage('Check your email for the login link.');
+      setSession(session); // Store the session in the auth context
     }
     setLoading(false);
   };
@@ -35,7 +28,87 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="p-8 pb-20 flex flex-col items-center justify-center gap-6">
         <h2 className="text-3xl font-bold ">Log In</h2>
-        {/* 
+{/* 
+<button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Log in with Google
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Log in with Apple
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Log in with Facebook
+        </button>
+        */}
+{/* 
+<button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Log in with Google
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Log in with Apple
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Log in with Facebook
+        </button>
+        */}
+  {/* 
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Log in with Google
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Log in with Apple
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Log in with Facebook
+        </button>
+        */}
+  {/* 
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Log in with Google
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Log in with Apple
+        </button>
+        <button
+          onClick={() => handleLogin()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Log in with Facebook
+        </button>
+        */}
+  {/* 
         <button
           onClick={() => handleLogin()}
           className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
