@@ -1,6 +1,6 @@
 "use client";
 
-import AuthButton from "./AuthButton";
+import UserMenu from "./UserMenu"; // Import the renamed component
 import Link from 'next/link';
 
 export default function Header() {
@@ -31,7 +31,7 @@ export default function Header() {
         >
           Chrome Extension
         </Link>
-        <AuthButton />
+        <UserMenu /> 
       </div>
     </header>
   );

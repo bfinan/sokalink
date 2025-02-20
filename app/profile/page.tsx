@@ -41,11 +41,11 @@ export default function ProfilePage() {
 
     const { error } = await supabase
       .from('profiles')
-      .upsert({ id: userId, display_name: displayName });
+      .update({ id: userId, display_name: displayName });
 
     if (error) {
       console.error("Error updating profile:", error);
-      setMessage("Failed to update display name.");
+      setMessage("Failed to update display name to " + displayName + " for " + userId);
     } else {
       setMessage("Display name updated successfully.");
     }
