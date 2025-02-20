@@ -1,5 +1,5 @@
 // app/feed/page.tsx
-import LinkTable from '../../components/LinkTable'; // Import the updated LinkTable
+import LinkTable from '../../components/LinkTable';
 
 export default function FeedPage() {
   return (

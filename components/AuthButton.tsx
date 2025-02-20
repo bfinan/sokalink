@@ -3,15 +3,11 @@
 import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabaseClient";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"; // Import the modal
 import Link from 'next/link';
 
 export default function AuthButton() {
   const [session, setSession] = useState<Session | null>(null);
-  const [email, setEmail] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -30,19 +26,6 @@ export default function AuthButton() {
       authListener.subscription.unsubscribe();
     }
   }, []);
-
-  async function handleLogin() {
-    if (!email) return;
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
-
-    if (error) {
-      setMessage(`Error: ${error.message}`);
-    } else {
-      setMessage("Check your email for the login link.");
-    }
-    setLoading(false);
-  }
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -63,7 +46,7 @@ export default function AuthButton() {
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
               <Link href="/profile" className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                Profile
+                Settings
               </Link>
               <button
                 onClick={handleLogout}
@@ -75,37 +58,13 @@ export default function AuthButton() {
           )}
         </div>
       ) : (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogTrigger asChild>
+        <div>
+          <Link href="/register">
             <button className="rounded-full bg-[#088F8F] dark:bg-[#0e6f9e] text-white transition-colors flex items-center justify-center hover:bg-[#0056b3] dark:hover:bg-[#0e6f9e] h-8 sm:h-8 px-4 sm:px-5 sm:min-w-22">
-              Log In
+              Sign Up
             </button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Login to Sokalink</DialogTitle>
-            </DialogHeader>
-
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full p-2 border rounded-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              className="w-full bg-[#088F8F] text-white p-2 rounded-md mt-4"
-
-            >
-              {loading ? "Sending..." : "Send Magic Link"}
-              </button>
-
-
-            {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
-          </DialogContent>
-        </Dialog>
+          </Link>
+        </div>
       )}
     </div>
   );

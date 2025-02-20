@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-import Header from '../../components/Header';
 
 export default function ProfilePage() {
   const [displayName, setDisplayName] = useState<string>('');
@@ -54,7 +53,6 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main className="p-8 pb-20 flex items-center justify-center">
         <div className="w-full max-w-md">
           <h2 className="text-xl font-semibold mb-4">Profile</h2>

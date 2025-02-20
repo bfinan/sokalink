@@ -9,3 +9,9 @@ other steps before release
 - [ ] SMTP server
 - [ ] extension login 
 - [ ] production setup
+
+## onboarding stuff
+
+### overview page
+- [ ] tall SVG arrow 
+- [ ] Chrome extensions svg

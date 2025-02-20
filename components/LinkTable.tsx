@@ -87,7 +87,7 @@ export default function LinkTable({ limit }: LinkTableProps) {
   }
 
   return (
-    <div className="min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)] flex">
+    <div className=" p-8 pb-20 font-[family-name:var(--font-geist-sans)] flex">
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {displayedLinks.map((link) => (
           <li key={link.id} style={{ marginBottom: '1rem' }}>
