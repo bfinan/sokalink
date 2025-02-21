@@ -46,10 +46,56 @@ export default function RegisterPage() {
     setLoading(false);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleEmailRegister();
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="p-8 pb-20 flex flex-col items-center justify-center gap-6">
         <h2 className="text-3xl font-bold">Sign Up for Free</h2>
+{/*
+<button
+onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Sign Up with Google
+        </button>
+        <button
+          onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Sign Up with Apple
+        </button>
+        <button
+          onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Sign Up with Facebook
+        </button>
+        */}
+        {/*
+        <button
+          onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Sign Up with Google
+        </button>
+        <button
+          onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
+        >
+          Sign Up with Apple
+        </button>
+        <button
+          onClick={() => handleRegister()}
+          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Sign Up with Facebook
+        </button>
+        */}
         {/*
         <button
           onClick={() => handleRegister()}
@@ -77,6 +123,7 @@ export default function RegisterPage() {
             className="w-full p-2 border rounded-md"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <button
             onClick={handleEmailRegister}
@@ -87,7 +134,7 @@ export default function RegisterPage() {
           </button>
           {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
         </div>
-<p className="text-sm text-gray-800 mt-4">
+        <p className="text-sm text-gray-800 mt-4">
           Already a member? <Link href="/login" className="text-teal-800 font-semibold dark:text-green-400">Log in</Link>
         </p>
       </main>

@@ -41,7 +41,8 @@ export default function ProfilePage() {
 
     const { error } = await supabase
       .from('profiles')
-      .update({ id: userId, display_name: displayName });
+      .update({ display_name: displayName })
+      .eq('id', userId); // Add WHERE clause
 
     if (error) {
       console.error("Error updating profile:", error);

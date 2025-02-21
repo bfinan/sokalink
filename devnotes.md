@@ -6,8 +6,8 @@ that's a lot of work but you can borrow heavily from the manifold markets repo
 
 other steps before release
 
+- [ ] extension session capture 
 - [ ] SMTP server
-- [ ] extension login 
 - [ ] production setup
 
 ## onboarding stuff
@@ -15,3 +15,4 @@ other steps before release
 ### overview page
 - [ ] tall SVG arrow 
 - [ ] Chrome extensions svg
+- [ ] make the login flow borrow less from other sites

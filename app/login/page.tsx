@@ -24,110 +24,16 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      handleEmailLogin();
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="p-8 pb-20 flex flex-col items-center justify-center gap-6">
         <h2 className="text-3xl font-bold ">Log In</h2>
-{/* 
-<button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Log in with Google
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Log in with Apple
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Log in with Facebook
-        </button>
-        */}
-{/* 
-<button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Log in with Google
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Log in with Apple
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Log in with Facebook
-        </button>
-        */}
-  {/* 
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Log in with Google
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Log in with Apple
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Log in with Facebook
-        </button>
-        */}
-  {/* 
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Log in with Google
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Log in with Apple
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Log in with Facebook
-        </button>
-        */}
-  {/* 
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Log in with Google
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Log in with Apple
-        </button>
-        <button
-          onClick={() => handleLogin()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Log in with Facebook
-        </button>
-        */}
         <div className="w-full max-w-xs mt-4">
           <input
             type="email"
@@ -135,6 +41,7 @@ export default function LoginPage() {
             className="w-full p-2 border rounded-md"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyPress} // Add key press handler
           />
           <button
             onClick={handleEmailLogin}
