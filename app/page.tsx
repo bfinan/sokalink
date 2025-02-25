@@ -7,7 +7,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-16 w-full max-w-6xl items-start">
           {/* Left Side: Title, Description, and Buttons */}
           <div className="flex flex-col gap-6 items-start">
-            <h2 className="pt-32 text-lg sm:text-3xl text-gray-900 dark:text-gray-200 font-bold">
+            <h2 className="pt-32 text-lg sm:text-4xl text-gray-900 dark:text-gray-200 font-bold">
               One-click social link sharing
             </h2>
             <h3 className="text-gray-600 dark:text-gray-300">

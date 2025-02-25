@@ -8,40 +8,31 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-/*
-  const handleRegister = async () => {
-    setLoading(true);
 
-    // it's expecting a string as the arg and provider, i.e. 'google'
-    const { error } = await supabase.auth.signInWithOAuth({ provider });
-    if (error) {
-      setMessage(`Error: ${error.message}`);
-    }
-
-    setLoading(false);
-  };
-    */
-  /*
-  const handleRegister = async () => {
-    setLoading(true);
-
-    // it's expecting a string as the arg and provider, i.e. 'google'
-    const { error } = await supabase.auth.signInWithOAuth({ provider });
-    if (error) {
-      setMessage(`Error: ${error.message}`);
-    }
-
-    setLoading(false);
-  };
-    */
   const handleEmailRegister = async () => {
     if (!email) return;
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    const { error } = await supabase.auth.signInWithOtp({       email });
     if (error) {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage('Check your email for the registration link.');
+    }
+    setLoading(false);
+  };
+
+  const handleGoogleRegister = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000'
+          : 'https://sokalink.com',
+      },
+    });
+    if (error) {
+      setMessage(`Error: ${error.message}`);
     }
     setLoading(false);
   };
@@ -56,66 +47,12 @@ export default function RegisterPage() {
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="p-8 pb-20 flex flex-col items-center justify-center gap-6">
         <h2 className="text-3xl font-bold">Sign Up for Free</h2>
-{/*
-<button
-onClick={() => handleRegister()}
+        <button
+          onClick={handleGoogleRegister}
           className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
         >
           Sign Up with Google
         </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Sign Up with Apple
-        </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Sign Up with Facebook
-        </button>
-        */}
-        {/*
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Sign Up with Google
-        </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Sign Up with Apple
-        </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Sign Up with Facebook
-        </button>
-        */}
-        {/*
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
-        >
-          Sign Up with Google
-        </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-black text-white py-2 rounded-md hover:bg-gray-800"
-        >
-          Sign Up with Apple
-        </button>
-        <button
-          onClick={() => handleRegister()}
-          className="w-full max-w-xs bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-        >
-          Sign Up with Facebook
-        </button>
-        */}
         <div className="w-full max-w-xs mt-4">
           <input
             type="email"

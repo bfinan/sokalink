@@ -24,6 +24,22 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000'
+          : 'https://sokalink.com',
+      },
+    });
+    if (error) {
+      setMessage(`Error: ${error.message}`);
+    }
+    setLoading(false);
+  };
+
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       handleEmailLogin();
@@ -31,9 +47,16 @@ export default function LoginPage() {
   };
 
   return (
+
     <div className="min-h-screen flex flex-col items-center justify-center">
       <main className="p-8 pb-20 flex flex-col items-center justify-center gap-6">
         <h2 className="text-3xl font-bold ">Log In</h2>
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full max-w-xs bg-red-500 text-white py-2 rounded-md hover:bg-red-600"
+        >
+          Log in with Google
+        </button>
         <div className="w-full max-w-xs mt-4">
           <input
             type="email"
@@ -47,15 +70,17 @@ export default function LoginPage() {
             onClick={handleEmailLogin}
             disabled={loading}
             className="w-full bg-[#088F8F] text-white p-2 rounded-md mt-4 hover:bg-[#0056b3]"
-          >
+          ></button>
             {loading ? 'Sending...' : 'Send Magic Link'}
-          </button>
+
           {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
         </div>
         <p className="text-sm text-gray-800 mt-4">
           New here? <Link href="/register" className="text-teal-800 font-semibold dark:text-green-400">Create a New Account</Link>
         </p>
+
       </main>
+
     </div>
   );
 }
