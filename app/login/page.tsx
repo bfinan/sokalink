@@ -70,8 +70,8 @@ export default function LoginPage() {
             onClick={handleEmailLogin}
             disabled={loading}
             className="w-full bg-[#088F8F] text-white p-2 rounded-md mt-4 hover:bg-[#0056b3]"
-          ></button>
-            {loading ? 'Sending...' : 'Send Magic Link'}
+          >            {loading ? 'Sending...' : 'Send Magic Link'}</button>
+
 
           {message && <p className="text-sm text-gray-500 mt-2">{message}</p>}
         </div>

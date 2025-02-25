@@ -18,11 +18,18 @@
       "notifications"
     ],
     "host_permissions": [
-      "https://your-supabase-url.supabase.co/*"
+      "https://ukfazrrgqlbulttdqklf.supabase.co/*",
+      "https://sokalink.com/*",
+      "http://localhost/*" 
     ],
     "background": {
       "service_worker": "background.js",
       "type": "module"
-    }
+    },
+    "content_scripts": [
+      {
+        "matches": ["http://localhost/*", "https://sokalink.com/*"],
+        "js": ["contentScript.js"]
+      }
+    ]
 }
-  

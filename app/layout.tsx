@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuthProvider } from "../components/auth-context"; // Import AuthProvider
+import SendUserIdToExtension from "../components/SendUserIdToExtension"; // Import SendUserIdToExtension
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,16 +30,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <Header></Header>
+          <Header />
           {children}
-          <Footer></Footer>
+          <Footer />
           <SpeedInsights />
           <Analytics />
+          <SendUserIdToExtension /> {/* Send user ID to extension */}
         </AuthProvider>
       </body>
     </html>

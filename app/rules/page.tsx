@@ -8,10 +8,10 @@ export default async function About() {
       </header>
       <main className="p-8 flex flex-col items-center justify-center gap-6">
         <h2 className="text-lg sm:text-3xl text-gray-900 dark:text-gray-200 font-bold">
-          No NSFW
+          Safe For Work
         </h2>
         <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl text-center">
-          Links should be appropriate for a general audience. No nudity, sexual content, or violence.
+          Links should be appropriate for a general audience.
         </p>
 
         <h2 className="text-lg sm:text-3xl text-gray-900 dark:text-gray-200 font-bold">
