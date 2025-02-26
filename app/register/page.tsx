@@ -27,8 +27,8 @@ export default function RegisterPage() {
       provider: 'google',
       options: {
         redirectTo: process.env.NODE_ENV === 'development'
-          ? 'http://localhost:3000'
-          : 'https://sokalink.com',
+          ? 'http://localhost:3000/onboard-download'
+          : 'https://sokalink.com/onboard-download',
       },
     });
     if (error) {

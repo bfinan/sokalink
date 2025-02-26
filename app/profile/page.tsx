@@ -52,6 +52,10 @@ export default function ProfilePage() {
     }
   };
 
+  const handleDeleteAccount = () => {
+    setMessage("This hasn't been implemented yet, please email brendanfinan@proton.me and I'll delete your account.");
+  };
+
   return (
     <div className="min-h-screen">
       <main className="p-8 pb-20 flex items-center justify-center">
@@ -74,6 +78,12 @@ export default function ProfilePage() {
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
           >
             Save
+          </button>
+          <button
+            onClick={handleDeleteAccount}
+            className="w-full bg-red-500 text-white mt-44 py-2 rounded-md hover:bg-red-600"
+          >
+            Delete Account
           </button>
           {message && <p className="mt-4 text-center">{message}</p>}
         </div>

@@ -3,7 +3,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import { supabase } from '../lib/supabaseClient'; 
 import { useEffect, useState } from 'react'; 
-import { Link } from 'lucide-react';
+import Link from 'next/link';
 
 interface Profile {
   display_name: string | null;
@@ -19,11 +19,12 @@ interface Link {
 }
 
 interface LinkTableProps {
+  userId?: string;
   limit?: number;
 }
 
-export default function LinkTable({ limit }: LinkTableProps) {
-  const [userId, setUserId] = useState<string | null>(null);
+export default function LinkTable({ userId, limit }: LinkTableProps) {
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [links, setLinks] = useState<Link[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,14 +35,20 @@ export default function LinkTable({ limit }: LinkTableProps) {
         console.log("Error retrieving session or user not logged in:", error);
         return;
       }
-      setUserId(session.user.id);
+      setCurrentUserId(session.user.id);
     };
 
     const fetchLinks = async () => {
-      const { data: links, error } = await supabase
+      let query = supabase
         .from("links")
         .select("*, profiles!links_submitter_fkey(display_name)")
         .order("created_at", { ascending: false });
+
+      if (userId) {
+        query = query.eq('submitter', userId);
+      }
+
+      const { data: links, error } = await query;
 
       if (error) {
         console.error("Error fetching links:", error);
@@ -53,7 +60,7 @@ export default function LinkTable({ limit }: LinkTableProps) {
 
     fetchUser();
     fetchLinks();
-  }, []);
+  }, [userId]);
 
   // If a limit is provided, slice the array to show only the first N links.
   const displayedLinks = limit ? links.slice(0, limit) : links;
@@ -104,12 +111,12 @@ export default function LinkTable({ limit }: LinkTableProps) {
             </small>
             <br />
             <small style={{ color: "darkgray", marginLeft: "8px" }}>
-              from {link.profiles?.display_name || "anonymous"}
+              from <Link href={`/${link.profiles?.display_name}`} className="hover:underline">{link.profiles?.display_name || "anonymous"}</Link>
             </small>
             <small style={{ color: "darkgray", marginLeft: "4px" }}>
               {formatDistanceToNow(new Date(link.created_at))} ago
             </small>
-            {userId === link.submitter && link.submitter && (
+            {currentUserId === link.submitter && link.submitter && (
               <button
                 onClick={() => handleDelete(link.id)} 
                 style={{ marginLeft: '8px', color: 'red' }}

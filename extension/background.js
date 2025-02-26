@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient.js';
 
-// on install, set the default submitter ID to the extension ID
+// on install, set the default submitter ID to the extension ID and direct the user to the tutorial page
 chrome.runtime.onInstalled.addListener(() => {
     // initialize a local storage variable to store the submitter ID
     const submitterId = "Uninitialized user";
@@ -9,6 +9,10 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.local.set({ submitterId: submitterId }, () => {
         console.log("Submitter ID stored in extension storage:", submitterId);
     });
+    /*
+    // Open the tutorial page
+    chrome.tabs.create({ url: "https://sokalink.com/welcome/tutorial" });
+    */
 });
 
 // Listen for messages from the Sokalink website

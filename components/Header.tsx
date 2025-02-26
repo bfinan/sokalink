@@ -5,7 +5,8 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="w-full flex justify-between items-center px-18 py-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+    <header className="w-full flex justify-between items-center px-18 py-2
+    font-[family-name:var(--font-geist-sans)] border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
       {/* Left Side: Logo Link with Left Padding */}
       <div className="flex-1">
         <Link
