@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Sokalink",
     "version": "1.0.0",
-    "description": "Publish the current URL to Sokalink.",
+    "description": "Post your current URL to Sokalink.",
     "action": {
       "default_icon": {
         "16": "icons/icon16.png",

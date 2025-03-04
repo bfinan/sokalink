@@ -1,4 +1,5 @@
 import LinkTable from "../components/LinkTable"; // Import the updated LinkTable
+import Link from "next/link"; 
 
 export default async function Home() {
   return (
@@ -13,12 +14,12 @@ export default async function Home() {
             <h3 className="text-gray-600 dark:text-gray-300">
               Share your discoveries instantly without overthinking.
             </h3>
-            <a
+            <Link
               className="rounded-full bg-[#088F8F] dark:bg-[#0e6f9e] text-white transition-colors flex items-center justify-center hover:bg-[#0056b3] dark:hover:bg-[#0e6f9e] h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
               href="/feed"
             >
               Go to Feed
-            </a>
+            </Link>
           </div>
           {/* Right Side: Link Table */}
           <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg w-full">
