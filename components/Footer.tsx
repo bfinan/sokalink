@@ -33,18 +33,19 @@ export default function Footer() {
       </div>
 
       {/* Right Side: Links & Auth */}
-      <div className="flex items-center gap-6 px-4">
+      <div className="flex items-center gap-6 px-4 text-gray-600 dark:text-gray-300 hover:underline">
         {isWideEnough && (
           <>
             <Link
-              className="text-gray-600 dark:text-gray-300 text-sm hover:underline"
+              className=""
               href="https://chrome.google.com/webstore/detail/sokalink"
               target="_blank"
               rel="noopener noreferrer"
             >
               Chrome Extension
             </Link>
-            <Link className="text-gray-600 dark:text-gray-300 text-sm hover:underline" href="https://github.com/bfinan/sokalink">Github</Link>
+            <Link className="text-gray-600 dark:text-gray-300 hover:underline" href="https://github.com/bfinan/sokalink">Github</Link>
+            <Link className="text-gray-600 dark:text-gray-300  hover:underline" href="/contact">Contact</Link>
           </>
         )}
       </div>

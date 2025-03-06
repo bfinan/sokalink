@@ -16,14 +16,16 @@ interface Link {
   created_at: string;
   submitter?: string; // UUID referencing the profile
   profiles?: Profile; // Contains the submitter's display_name
+  anon_submitter?: string; // randomly generated username for anon submitters
 }
 
 interface LinkTableProps {
   userId?: string;
   limit?: number;
+  anonSubmitter?: string | string[];
 }
 
-export default function LinkTable({ userId, limit }: LinkTableProps) {
+export default function LinkTable({ userId, limit, anonSubmitter }: LinkTableProps) {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [links, setLinks] = useState<Link[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -42,10 +44,15 @@ export default function LinkTable({ userId, limit }: LinkTableProps) {
       let query = supabase
         .from("links")
         .select("*, profiles!links_submitter_fkey(display_name)")
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .limit(150);
+
+        //TODO pagination
 
       if (userId) {
         query = query.eq('submitter', userId);
+      } else if (anonSubmitter) {
+        query = query.eq('anon_submitter', anonSubmitter);
       }
 
       const { data: links, error } = await query;
@@ -60,7 +67,7 @@ export default function LinkTable({ userId, limit }: LinkTableProps) {
 
     fetchUser();
     fetchLinks();
-  }, [userId]);
+  }, [userId, anonSubmitter]);
 
   // If a limit is provided, slice the array to show only the first N links.
   const displayedLinks = limit ? links.slice(0, limit) : links;
@@ -111,7 +118,7 @@ export default function LinkTable({ userId, limit }: LinkTableProps) {
             </small>
             <br />
             <small style={{ color: "darkgray", marginLeft: "8px" }}>
-              from <Link href={`/${link.profiles?.display_name}`} className="hover:underline">{link.profiles?.display_name || "anonymous"}</Link>
+              from <Link href={`/${link.profiles?.display_name || link.anon_submitter}`} className="hover:underline">{link.profiles?.display_name || link.anon_submitter || "anonymous"}</Link>
             </small>
             <small style={{ color: "darkgray", marginLeft: "4px" }}>
               {formatDistanceToNow(new Date(link.created_at))} ago
