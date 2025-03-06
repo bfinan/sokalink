@@ -9,10 +9,9 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.local.set({ submitterId: submitterId }, () => {
         console.log("Submitter ID stored in extension storage:", submitterId);
     });
-    /*
-    // Open the tutorial page
+
     chrome.tabs.create({ url: "https://sokalink.com/welcome/tutorial" });
-    */
+
 });
 
 // Listen for messages from the Sokalink website
@@ -47,6 +46,12 @@ chrome.action.onClicked.addListener(async (tab) => {
 
                 if (error) {
                     console.error("Failed to publish URL:", error);
+                    chrome.notifications.create({
+                        type: "basic",
+                        iconUrl: "icons/fail48.png",
+                        title: "Sokalink",
+                        message: error.message
+                    });
                 } else {
                     console.log("URL published successfully:", data);
 

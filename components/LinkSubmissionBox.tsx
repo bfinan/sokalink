@@ -21,27 +21,28 @@ export default function LinkSubmissionBox() {
     }
   };
 
-  async function ipToUUID(ip: string) {
-    // Hash the IP address using SHA-256
+  async function generateAnonUsername(ip: string) {
+    const adjectives = ["Happy", "Brave", "Clever", "Mighty", "Quiet", "Swift", "Jolly", "Wise","Basic", "Mystery"];
+    const nouns = ["Lantern", "Tiger", "Sparrow", "Mountain", "River", "Shield", "Comet", "Guy", "Mouse", "Eagle"];
+    
+    // Hash the IP address
     const encoder = new TextEncoder();
     const data = encoder.encode(ip);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
+    
+    // Convert hash to a number
+    const hashNum = hashArray.reduce((acc, val) => (acc * 256 + val) % 10000, 0);
+    
+    // Pick an adjective and noun based on the hash
+    const adjective = adjectives[hashNum % adjectives.length];
+    const noun = nouns[(hashNum / (hashNum % adjectives.length)) % nouns.length];
+    const number = hashNum % 100; // Two-digit number for uniqueness
+    
+    console.log("Generated anon username:", `${adjective}${noun}${number}`);
+    return `${adjective}${noun}${number}`;
+}
 
-    // Generate UUID format (xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx)
-    const uuid = [
-        ...hashArray.slice(0, 4), "-",
-        ...hashArray.slice(4, 6), "-",
-        (hashArray[6] & 0x0f | 0x40).toString(16), // Set UUID version to 4 (random)
-        ...hashArray.slice(7, 8), "-",
-        (hashArray[8] & 0x3f | 0x80).toString(16), // Set UUID variant
-        ...hashArray.slice(9, 10), "-",
-        ...hashArray.slice(10, 16)
-    ].map(byte => (typeof byte === "string" ? byte : byte.toString(16).padStart(2, "0"))).join("");
-
-    console.log("UUID: ", uuid);
-    return uuid;
-  }
 
   const handleSubmit = async () => {
     if (!url || !isValidUrl(url)) {
@@ -53,12 +54,12 @@ export default function LinkSubmissionBox() {
       return;
     }
     setLoading(true);
-    const submitter = await ipToUUID("123.45.65.73");
+    const anon_submitter_id = await generateAnonUsername("123.45.65.73");
     const { error } = await supabase
       .from('links')
-      .insert([{ url, title, submitter: submitter || null }]);
+      .insert([{ url, title, anon_submitter: anon_submitter_id || null }]);
 
-    console.log('Submitted link with params:', { url, title, submitter });
+    console.log('Submitted link with params:', { url, title, anon_submitter: anon_submitter_id });
 
     if (error) {
       setMessage(`Error: ${error.message}`);
