@@ -33,11 +33,11 @@ export default function Footer() {
       </div>
 
       {/* Right Side: Links & Auth */}
-      <div className="flex items-center gap-6 px-4 text-gray-600 dark:text-gray-300 hover:underline">
+      <div className="flex items-center gap-6 px-4 text-gray-600 dark:text-gray-300">
         {isWideEnough && (
           <>
             <Link
-              className=""
+              className="hover:underline"
               href="https://chrome.google.com/webstore/detail/sokalink"
               target="_blank"
               rel="noopener noreferrer"

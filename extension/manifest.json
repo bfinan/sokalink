@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Sokalink",
-    "version": "0.0.0.1",
+    "version": "0.0.0.2",
     "description": "Post your current URL to Sokalink.",
     "action": {
       "default_icon": {
@@ -16,11 +16,6 @@
       "activeTab",
       "storage",
       "notifications"
-    ],
-    "host_permissions": [
-      "https://ukfazrrgqlbulttdqklf.supabase.co/*",
-      "https://sokalink.com/*",
-      "http://localhost/*" 
     ],
     "background": {
       "service_worker": "background.js",

@@ -40,14 +40,6 @@ export default function Header() {
             <Link href="/about" className="hover:underline">
               About
             </Link>
-            <Link
-              className="hover:underline"
-              href="https://chrome.google.com/webstore/detail/sokalink"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Chrome Extension
-            </Link>
           </>
         )}
         <UserMenu /> 
