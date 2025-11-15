@@ -34,6 +34,27 @@ chrome.action.onClicked.addListener(async (tab) => {
         console.log("Page Title:", tab.title);
 
         try {
+            const isSokalinkDomain = (() => {
+                try {
+                    const hostname = new URL(tab.url).hostname;
+                    return hostname === "sokalink.com" || hostname.endsWith(".sokalink.com");
+                } catch (parseError) {
+                    console.warn("Unable to parse URL, proceeding anyway:", parseError);
+                    return false;
+                }
+            })();
+
+            if (isSokalinkDomain) {
+                console.log("Blocked attempt to publish sokalink.com URL:", tab.url);
+                chrome.notifications.create({
+                    type: "basic",
+                    iconUrl: "icons/fail48.png",
+                    title: "Sokalink",
+                    message: "Links from sokalink.com cannot be shared."
+                });
+                return;
+            }
+
             // Retrieve the submitter string from extension storage
             chrome.storage.local.get('submitterId', async (result) => {
                 const submitterId = result.submitterId;
