@@ -37,6 +37,9 @@ export default function Header() {
       <div className="flex items-center gap-10 px-8 text-gray-600 dark:text-gray-300 font-bold text-sm ">
         {isWideEnough && (
           <>
+            <Link href="/translator" className="hover:underline">
+              Translator
+            </Link>
             <Link href="/about" className="hover:underline">
               About
             </Link>
